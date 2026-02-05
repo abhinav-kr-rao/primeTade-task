@@ -44,11 +44,6 @@ From your local terminal:
 ```bash
 # Update .env temporarily to your CLOUD database url, OR run this command:
 DATABASE_URL="your-cloud-connection-string" npx prisma db push
-```
-*Note: On Windows PowerShell, you set env vars differently:*
-```powershell
-$env:DATABASE_URL="your-cloud-connection-string"; npx prisma db push
-```
 
 ## 5. Verify
 Open your Vercel URL (e.g., `https://my-app.vercel.app`).
