@@ -46,7 +46,7 @@ export default function RegisterPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 border-gray-300"
+                            className="w-full px-3 py-2 mt-1 border text-black rounded-md focus:ring-blue-500 focus:border-blue-500 border-gray-300"
                         />
                     </div>
                     <div>
@@ -56,7 +56,7 @@ export default function RegisterPage() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 border-gray-300"
+                            className="w-full px-3 py-2 mt-1 border text-black rounded-md focus:ring-blue-500 focus:border-blue-500 border-gray-300"
                         />
                     </div>
                     <div>
@@ -64,7 +64,7 @@ export default function RegisterPage() {
                         <select
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
-                            className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 border-gray-300"
+                            className="w-full px-3 py-2 mt-1 border text-black rounded-md focus:ring-blue-500 focus:border-blue-500 border-gray-300"
                         >
                             <option value="USER">User</option>
                             <option value="ADMIN">Admin</option>
