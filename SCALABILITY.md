@@ -1,10 +1,10 @@
 # Scalability Architecture
 
-This project is designed with scalability in mind, leveraging Next.js's serverless capabilities and modern deployment patterns.
+This project is designed with scalability in mind.
 
 ## 1. Serverless & Edge Computing
 - **Next.js App Router**: API routes are deployed as Serverless Functions (Lambda). This allows the application to scale automatically based on demand without managing server infrastructure.
-- **Edge Middleware**: The `middleware.ts` runs at the Edge, ensuring authentication checks happen close to the user, reducing latency before requests even hit the database.
+- **Edge Middleware**: The `proxy.ts` runs at the Edge, ensuring authentication checks happen close to the user, reducing latency before requests hit the database.
 
 ## 2. Database Optimization for Scale
 - **Prisma Connection Pooling**: Using Prisma Accelerate or PgBouncer is recommended for production to handle thousands of concurrent connections.

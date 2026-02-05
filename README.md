@@ -23,8 +23,8 @@ A Scalable REST API with Authentication & Role-Based Access, built with Next.js 
 2.  **Environment Setup**
     Create `.env` in the root:
     ```env
-    DATABASE_URL="postgresql://postgres:postgres@localhost:5432/primetrade_db?schema=public"
-    JWT_SECRET="your-super-secret-key"
+    DATABASE_URL="postgresql://user:password@localhost:5432/db?schema=public"
+    JWT_SECRET="your-jwt-secret"
     ```
 
 3.  **Database Setup**

@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - Node.js (v18+)
-- PostgreSQL (Local or Docker)
+- PostgreSQL
 
 ## 1. Database Setup
 
@@ -23,8 +23,8 @@ docker run --name primetrade-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_
 Ensure your `.env` file exists in the root directory:
 
 ```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/primetrade_db?schema=public"
-JWT_SECRET="super-secure-jwt-secret-key-12345"
+DATABASE_URL="postgresql://user:password@localhost:5432/db?schema=public"
+JWT_SECRET="your-jwt-secret"
 ```
 
 ## 3. Install & Setup
