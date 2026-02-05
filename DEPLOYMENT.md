@@ -26,7 +26,8 @@ I have already added the `"postinstall": "prisma generate"` script to your `pack
 4.  Import your GitHub repository.
 5.  **Configure Environment Variables**:
     *   Expand the "Environment Variables" section.
-    *   Add `DATABASE_URL` = (Your Cloud Postgres Connection String)
+    *   Add `DATABASE_URL` = (Your Pooled Connection String from Neon)
+    *   Add `DIRECT_URL` = (Your Direct Connection String from Neon)
     *   Add `JWT_SECRET` = (A long random string)
 6.  Click **"Deploy"**.
 
