@@ -70,10 +70,7 @@ export default function DashboardPage() {
     };
 
     const handleLogout = async () => {
-        // In a real app we would call an api to clear the cookie
-        // For now we just redirect since cookie is httpOnly and we can't delete it from client easily 
-        // without an API route. Let's redirect to a logout route or just login.
-        // Ideally we should implement a /api/auth/logout.
+
         router.push('/login');
     };
 
@@ -98,16 +95,16 @@ export default function DashboardPage() {
                 {error && <div className="mb-4 p-4 text-red-700 bg-red-100 rounded-md">{error}</div>}
 
                 <div className="mb-8 bg-white shadow sm:rounded-lg p-6">
-                    <h2 className="text-lg font-medium mb-4">Create New Task</h2>
+                    <h2 className="text-lg text-black font-medium mb-4">Create New Task</h2>
                     <form onSubmit={handleCreateTask} className="flex gap-4 items-end">
                         <div className="flex-1">
-                            <label className="block text-sm font-medium text-gray-700">Title</label>
+                            <label className="block text-sm font-medium text-gray-400">Title</label>
                             <input
                                 type="text"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 required
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                className="mt-1 block w-full border text-black border-gray-700 rounded-md shadow-sm p-2"
                             />
                         </div>
                         <div className="flex-1">
@@ -116,7 +113,7 @@ export default function DashboardPage() {
                                 type="text"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                className="mt-1 block w-full border text-black border-gray-300 rounded-md shadow-sm p-2"
                             />
                         </div>
                         <button
