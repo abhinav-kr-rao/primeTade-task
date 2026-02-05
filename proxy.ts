@@ -3,9 +3,9 @@ import type { NextRequest } from 'next/server';
 import { verifyToken } from './lib/auth';
 
 // Paths that require authentication
-const protectedPaths = ['/dashboard', '/api/tasks'];
+const protectedPaths = ['/dashboard', '/api/v1/tasks'];
 // Paths restricted to ADMIN role
-const adminPaths = ['/api/admin'];
+const adminPaths = ['/api/v1/admin'];
 
 export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
@@ -60,7 +60,7 @@ export function proxy(request: NextRequest) {
 export const config = {
     matcher: [
         '/dashboard/:path*',
-        '/api/tasks/:path*',
-        '/api/admin/:path*',
+        '/api/v1/tasks/:path*',
+        '/api/v1/admin/:path*',
     ],
 };

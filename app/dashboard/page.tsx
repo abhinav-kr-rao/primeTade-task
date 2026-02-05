@@ -24,7 +24,7 @@ export default function DashboardPage() {
 
     const fetchTasks = async () => {
         try {
-            const res = await fetch('/api/tasks');
+            const res = await fetch('/api/v1/tasks');
             if (res.status === 401) {
                 router.push('/login');
                 return;
@@ -42,7 +42,7 @@ export default function DashboardPage() {
     const handleCreateTask = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch('/api/tasks', {
+            const res = await fetch('/api/v1/tasks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title, description }),
@@ -59,7 +59,7 @@ export default function DashboardPage() {
     const handleDelete = async (id: string) => {
         if (!confirm('Are you sure?')) return;
         try {
-            const res = await fetch(`/api/tasks/${id}`, {
+            const res = await fetch(`/api/v1/tasks/${id}`, {
                 method: 'DELETE',
             });
             if (!res.ok) throw new Error('Failed to delete task');
@@ -70,8 +70,14 @@ export default function DashboardPage() {
     };
 
     const handleLogout = async () => {
-
-        router.push('/login');
+        try {
+            await fetch('/api/v1/auth/logout', { method: 'POST' });
+            router.push('/login');
+            router.refresh();
+        } catch (error) {
+            console.error('Logout failed', error);
+            router.push('/login');
+        }
     };
 
     if (loading) return <div className="p-8 text-center">Loading...</div>;
