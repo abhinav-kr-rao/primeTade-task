@@ -2,22 +2,23 @@
 
 This project is designed with scalability in mind.
 
-## 1. Serverless & Edge Computing
-- **Next.js App Router**: API routes are deployed as Serverless Functions (Lambda). This allows the application to scale automatically based on demand without managing server infrastructure.
-- **Edge Middleware**: The `proxy.ts` runs at the Edge, ensuring authentication checks happen close to the user, reducing latency before requests hit the database.
+## 1. Microservices Architecture
+The current monolithic architecture (Next.js) is designed to be easily decomposed into microservices as the application grows:
+- **Auth Service**: The `/api/v1/auth` routes can be extracted into a standalone Node.js/Go service handling JWT issuance and verification.
+- **Task Service**: The `/api/v1/tasks` routes can move to a separate service managed by a dedicated team, communicating via gRPC or REST.
+- **API Gateway**: Next.js Middleware already acts as an API Gateway/Reverse Proxy, which can route requests to these new backend services transparently.
 
-## 2. Database Optimization for Scale
-- **Prisma Connection Pooling**: Using Prisma Accelerate or PgBouncer is recommended for production to handle thousands of concurrent connections.
-- **Indexing**: The PostgreSQL schema is designed with indexes on frequent lookup fields (e.g., `email`, `userId` on tasks). (Note: Indexes should be explicitly added in migration scripts for high volume).
+## 2. Caching Strategies
+To handle high traffic, we can implement multi-layer caching:
+- **Browser Caching**: Valid `Cache-Control` headers for static assets (managed by Vercel/Next.js).
+- **Edge Caching**: Vercel's Edge Network caches mostly static API responses (CDN).
+- **Application Caching**: Implement **Redis** to cache:
+    - User sessions (if moving away from stateless JWTs).
+    - Heavy database queries (e.g., getting task summaries).
+- **Database Caching**: Use Read Replicas (Neon/RDS) to offload read-heavy operations from the primary writer node.
 
-## 3. Caching Strategy
-- **HTTP Cache Headers**: API responses can utilize `Cache-Control` headers for public data.
-- **SWR / React Server Components**: The frontend uses standard fetches, but moving to React Query or SWR would provide client-side caching and deduplication to reduce API load.
+## 3. Load Balancing
+- **Horizontal Scaling**: Since the app is stateless (JWT Auth), we can spin up `N` instances of the application container behind a load balancer.
+- **Global Distribution**: Deploying to Edge regions (Vercel) automatically routes usage to the nearest physical data center (Anycast DNS).
+- **Database Load Balancing**: Use **PgBouncer** to pool thousands of connections and distribute them to available database connections efficiently.
 
-## 4. Horizontal Scaling
-- **Stateless Auth**: JWT authentication is completely stateless. No session storage is required on the server (Redis/Memcached), meaning any number of server instances can handle requests independently.
-- **Load Balancing**: Deploying on Vercel or behind Nginx allows easy load balancing across multiple regions.
-
-## 5. Deployment Recommendation
-- **Vercel**: For instant global distribution.
-- **Docker**: Containerized deployment (as demonstrated in Setup) allows orchestration via Kubernetes (K8s) for enterprise scale.
