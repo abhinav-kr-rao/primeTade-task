@@ -129,7 +129,7 @@ def main():
         try:
             with open(args.config, "r") as f:
                 ver = yaml.safe_load(f).get("version", "v1")
-        except:
+        except Exception as e:
             ver = "v1"
 
         error_data = {"version": ver, "status": "error", "error_message": error_msg}
