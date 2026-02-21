@@ -1,6 +1,6 @@
-# Dashy - Full-Stack User Profile & Management App
+# PrimeTrade-Dashboard - Full-Stack User Profile & Management App
 
-Dashy is a premium user management application built with a modern tech stack. It features a complete authentication system, a unified search engine, and full CRUD capabilities for tasks and posts.
+PrimeTrade-Dashboard is a premium user management application built with a modern tech stack. It features a complete authentication system, a unified search engine, and full CRUD capabilities for tasks and posts.
 
 ## 🚀 Tech Stack
 
