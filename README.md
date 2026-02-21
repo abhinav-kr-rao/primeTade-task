@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dashy - Full-Stack User Profile & Management App
 
-## Getting Started
+Dashy is a premium user management application built with a modern tech stack. It features a complete authentication system, a unified search engine, and full CRUD capabilities for tasks and posts.
 
-First, run the development server:
+## 🚀 Tech Stack
 
+### Frontend
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **State Management**: React Context API (AuthContext)
+- **Icons**: Custom SVG icons & Lucide-inspired design
+
+### Backend
+- **Runtime**: Node.js
+- **Server**: Express.js
+- **Database**: [Neon DB](https://neon.com/) (Serverless PostgreSQL)
+- **Authentication**: JSON Web Tokens (JWT)
+- **Security**: Password hashing with `bcryptjs`
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- Neon DB account (for `DATABASE_URL`)
+
+### 1. Backend Setup
 ```bash
+# Navigate to backend
+cd backend
+
+# Install dependencies
+npm install express pg bcryptjs jsonwebtoken dotenv cors morgan
+
+# Configure environment variables (.env)
+# Create a .env file with the following:
+# PORT=5000
+# DATABASE_URL=your_neon_db_url
+# JWT_SECRET=your_jwt_secret
+
+# Start the server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Frontend Setup
+```bash
+# Navigate to the root (my-app)
+cd ..
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Install dependencies
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Configure environment variables (.env)
+# Create a .env file with:
+# NEXT_PUBLIC_API_URL=http://localhost:5000/api
 
-## Learn More
+# Start the dev server
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📡 API Documentation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Authentication
+- `POST /api/auth/register` - Create a new user account
+- `POST /api/auth/login` - Authenticate and get a JWT
+- `GET /api/auth/profile` - Get authenticated user profile (Protected)
 
-## Deploy on Vercel
+### Tasks (Protected)
+- `GET /api/tasks` - List all user tasks
+- `POST /api/tasks` - Create a new task
+- `PUT /api/tasks/:id` - Update an existing task
+- `DELETE /api/tasks/:id` - Delete a task
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Posts (Protected)
+- `GET /api/posts` - List all user posts
+- `POST /api/posts` - Create a new post
+- `PUT /api/posts/:id` - Update an existing post
+- `DELETE /api/posts/:id` - Delete a post
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Search (Protected)
+- `GET /api/search?q=query` - Unified search across tasks and posts
+
+---
+
+## 🔗 Integration Details
+
+The frontend and backend communicate via a centralized **`apiService.ts`** located in the `services` folder. This service abstraction ensures:
+- Automatic token injection for protected routes.
+- Consistent error handling.
+- SSR compatibility using `typeof window !== 'undefined'` checks for local storage.
+
+---
+
+## 📈 Scalability & Performance
+
+- **Stateless Authentication**: Using JWT allows the backend to be horizontally scaled without session sharing issues.
+- **Serverless Database**: Neon DB automatically scales compute resources based on demand, ensuring zero-latency spikes.
+- **Optimized UI**: Tailwind CSS ensures a minimal CSS bundle size, and Next.js optimizes asset delivery via edge caching.
+- **Modular Codebase**: Separate controllers, routes, and middlewares make the system easy to extend.
+
+---
+
+## 🌍 Deployment
+
+### Database
+- Already handled by **Neon DB**. Simply ensure your cloud connection string is set in the production environment variables.
+
+### Backend
+- Can be deployed to platforms like **Render**, **Railway**, or **AWS App Runner**.
+- Ensure `CORS` origins are restricted to your frontend URL in production.
+
+### Frontend
+- Deployment to **Vercel** is recommended for seamless Next.js support.
+- Set `NEXT_PUBLIC_API_URL` to your deployed backend URL.
