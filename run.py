@@ -55,8 +55,10 @@ def main():
         window = config.get("window")
         version = config.get("version")
 
-        if seed is None or window is None:
-            raise ValueError("Config file must contain 'seed' and 'window' fields")
+        if seed is None or window is None or version is None:
+            raise ValueError(
+                "Config file must contain 'seed', 'window', and 'version' fields"
+            )
 
         np.random.seed(seed)
         logging.info(f"Loaded config: version={version}, seed={seed}, window={window}")
@@ -87,16 +89,59 @@ def main():
         df["Signal"] = (df["close"] > df["rolling_mean"]).astype(int)
         logging.info("Generated trading signals based on close price vs rolling mean")
 
-        # Save output
-        df.to_csv(args.output, index=False)
-        logging.info(f"Job completed successfully. Output saved to {args.output}")
+        # 5. Metrics Calculation
+        rows_processed = int(len(df))
+        signal_rate = float(df["Signal"].mean())
+
+        # Stop timer for latency calculation
+        latency_ms = int((time.perf_counter() - start_time) * 1000)
+
+        logging.info(
+            f"Final Metrics - rows_processed: {rows_processed}, signal_rate: {signal_rate:.4f}, latency_ms: {latency_ms}"
+        )
+
+        # 6. Success Output (JSON)
+        import json
+
+        output_data = {
+            "version": version,
+            "rows_processed": rows_processed,
+            "metric": "signal_rate",
+            "value": signal_rate,
+            "latency_ms": latency_ms,
+            "seed": int(seed),
+            "status": "success",
+        }
+
+        with open(args.output, "w") as f:
+            json.dump(output_data, f, indent=4)
+
+        logging.info(f"Job completed successfully. Output JSON saved to {args.output}")
 
     except Exception as e:
-        logging.error(f"An error occurred during execution: {e}")
+        error_msg = str(e)
+        logging.error(f"An error occurred during execution: {error_msg}")
+
+        # Error Output (JSON)
+        import json
+
+        # We try to get version if config was partially loaded, otherwise default to "v1"
+        try:
+            with open(args.config, "r") as f:
+                ver = yaml.safe_load(f).get("version", "v1")
+        except:
+            ver = "v1"
+
+        error_data = {"version": ver, "status": "error", "error_message": error_msg}
+
+        with open(args.output, "w") as f:
+            json.dump(error_data, f, indent=4)
+
         sys.exit(1)
     finally:
-        total_latency_ms = (time.perf_counter() - start_time) * 1000
-        logging.info(f"Job finished. Total latency: {total_latency_ms:.2f} ms")
+        # Final latency log for tracking
+        final_latency = (time.perf_counter() - start_time) * 1000
+        logging.info(f"Job finished. Total execution time: {final_latency:.2f} ms")
 
 
 if __name__ == "__main__":
