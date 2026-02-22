@@ -1,5 +1,9 @@
 {
     "version": "v1",
-    "status": "error",
-    "error_message": "Input file not found: files.csv"
+    "rows_processed": 11,
+    "metric": "signal_rate",
+    "value": 0.45454545454545453,
+    "latency_ms": 12,
+    "seed": 42,
+    "status": "success"
 }
