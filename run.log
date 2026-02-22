@@ -1,0 +1,14 @@
+2026-02-22 05:17:26 - INFO - Loaded config: version=v1, seed=42, window=5
+2026-02-22 05:17:26 - INFO - Loaded data: 4 rows found in data.csv
+2026-02-22 05:17:26 - INFO - Calculated rolling mean (window=5) and dropped NaN rows. Remaining rows: 0
+2026-02-22 05:17:26 - INFO - Generated trading signals based on close price vs rolling mean
+2026-02-22 05:17:26 - INFO - Final Metrics - rows_processed: 0, signal_rate: nan, latency_ms: 13
+2026-02-22 05:17:26 - INFO - Job completed successfully. Output JSON saved to out.json
+2026-02-22 05:17:26 - INFO - Job finished. Total execution time: 14.65 ms
+2026-02-22 05:45:39 - INFO - Loaded config: version=v1, seed=42, window=5
+2026-02-22 05:45:39 - INFO - Loaded data: 15 rows found in data.csv
+2026-02-22 05:45:39 - INFO - Calculated rolling mean (window=5) and dropped NaN rows. Remaining rows: 11
+2026-02-22 05:45:39 - INFO - Generated trading signals based on close price vs rolling mean
+2026-02-22 05:45:39 - INFO - Final Metrics - rows_processed: 11, signal_rate: 0.4545, latency_ms: 12
+2026-02-22 05:45:39 - INFO - Job completed successfully. Output JSON saved to out.json
+2026-02-22 05:45:39 - INFO - Job finished. Total execution time: 14.19 ms
